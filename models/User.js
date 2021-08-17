@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
@@ -39,6 +40,10 @@ const UserSchema = new Schema(
 
 UserSchema.virtual('thoughtCount').get(function() {
     return this.thoughts.reduce((total, thought) => total + comments.replies.length + 1, 0);
+});
+
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
 });
 
 const User = model('User', UserSchema);
