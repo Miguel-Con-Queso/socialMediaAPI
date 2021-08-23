@@ -49,11 +49,31 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    deletePizza({ params }, res) {
+    deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.json(err));
+    },
+
+    addFriend({ params }, res) {
+        User.findByIdAndUpdate(params.getUserById, {$push: {friends: params.friendId}}, { new: true })
+            .then(dbUserData => {
+                if(!dbUserData) {
+                    res.sendStatus(404).json({ message: 'No user found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    deleteFriend({ params }, res) {
+        User.findByIdAndDelete({ _id: params.id })
             .then(dbUserData => res.json(dbUserData))
             .catch(err => res.json(err));
     }
 };
+
+
 
 module.exports = userController;
