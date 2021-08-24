@@ -38,10 +38,6 @@ const UserSchema = new Schema(
     }
 );
 
-UserSchema.virtual('thoughtCount').get(function() {
-    return this.thoughts.reduce((total, thought) => total + comments.replies.length + 1, 0);
-});
-
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });

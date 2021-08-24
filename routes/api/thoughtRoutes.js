@@ -20,7 +20,7 @@ router
     .post(addThought);
 
 router
-    .route('/:userId/:id')
+    .route('/:thoughtId')
     .delete(removeThought);
 
 router 
