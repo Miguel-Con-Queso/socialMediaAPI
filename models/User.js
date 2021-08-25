@@ -14,7 +14,7 @@ const UserSchema = new Schema(
             type: String,
             unique: true,
             required: true,
-            match: `/.+\@.+\..+/`
+            match: /.+\@.+\..+/
         },
         thoughts: [
             {
@@ -37,10 +37,6 @@ const UserSchema = new Schema(
         id: false
     }
 );
-
-UserSchema.virtual('thoughtCount').get(function() {
-    return this.thoughts.reduce((total, thought) => total + comments.replies.length + 1, 0);
-});
 
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
